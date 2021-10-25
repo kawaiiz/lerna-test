@@ -15,5 +15,6 @@
   "publishConfig": {
     "access": "publish",
     "registry": "https://registry.npmjs.org/"
-  }
+  },
+  "dependencies": {}
 }
