@@ -1,0 +1,15 @@
+0 silly argv {
+0 silly argv   _: [ 'create' ],
+0 silly argv   lernaVersion: '4.0.0',
+0 silly argv   '$0': '/mnt/c/Program Files/nodejs/node_modules/lerna/cli.js',
+0 silly argv   name: 'core'
+0 silly argv }
+1 notice cli v4.0.0
+2 verbose rootPath /home/zhaominglong/demo/lerna-test
+3 error Error: Command failed with exit code 1: git config --get user.name
+3 error     at makeError (/mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/execa/lib/error.js:60:11)
+3 error     at Function.module.exports.sync (/mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/execa/index.js:194:17)
+3 error     at Object.execSync (/mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/@lerna/child-process/index.js:39:16)
+3 error     at CreateCommand.gitConfig (/mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/@lerna/create/index.js:181:25)
+3 error     at CreateCommand.initialize (/mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/@lerna/create/index.js:103:46)
+3 error     at /mnt/c/Software/nvm/v14.16.0/node_modules/lerna/node_modules/@lerna/command/index.js:274:24
