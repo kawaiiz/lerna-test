@@ -16,5 +16,8 @@
     "access": "publish",
     "registry": "https://registry.npmjs.org/"
   },
-  "dependencies": {}
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "minimist": "^1.2.5"
+  }
 }

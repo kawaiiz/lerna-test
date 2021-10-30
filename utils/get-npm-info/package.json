@@ -1,0 +1,31 @@
+{
+  "name": "@zml-lerna-test/get-npm-info",
+  "version": "0.0.4",
+  "description": "> TODO: description",
+  "author": "zml <zmlq7@outlook.com>",
+  "homepage": "https://github.com/kawaiiz/lerna-test#readme",
+  "license": "ISC",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "__tests__"
+  },
+  "files": [
+    "lib"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kawaiiz/lerna-test.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "bugs": {
+    "url": "https://github.com/kawaiiz/lerna-test/issues"
+  },
+  "dependencies": {
+    "axios": "^0.24.0",
+    "semver": "^7.3.5",
+    "url-join": "^4.0.1"
+  }
+}
