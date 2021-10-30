@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/log",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
   "homepage": "https://github.com/kawaiiz/lerna-test#readme",
@@ -28,5 +28,6 @@
   },
   "dependencies": {
     "npmlog": "^5.0.1"
-  }
+  },
+  "gitHead": "5dd59cf2036d7d18e45f9ab5c1d2de343571e77a"
 }

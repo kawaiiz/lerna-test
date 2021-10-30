@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/utils",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
   "homepage": "",
@@ -16,7 +16,7 @@
   "scripts": {
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
-  "gitHead": "3562a0e02c8ddf66b7b47b22066a3708200c53c1",
+  "gitHead": "5dd59cf2036d7d18e45f9ab5c1d2de343571e77a",
   "publishConfig": {
     "access": "public"
   }

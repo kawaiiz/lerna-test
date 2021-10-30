@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/core",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
   "homepage": "",
@@ -20,9 +20,9 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zml-lerna-test/get-npm-info": "file:../../utils/get-npm-info",
-    "@zml-lerna-test/log": "file:../../utils/log",
-    "@zml-lerna-test/utils": "file:../../utils/utils",
+    "@zml-lerna-test/get-npm-info": "^0.1.1",
+    "@zml-lerna-test/log": "^0.1.1",
+    "@zml-lerna-test/utils": "^0.1.1",
     "colors": "^1.4.0",
     "commander": "^8.3.0",
     "import-local": "^3.0.3",
@@ -32,7 +32,7 @@
     "semver": "^7.3.5",
     "user-home": "^3.0.0"
   },
-  "gitHead": "3562a0e02c8ddf66b7b47b22066a3708200c53c1",
+  "gitHead": "5dd59cf2036d7d18e45f9ab5c1d2de343571e77a",
   "publishConfig": {
     "access": "public"
   }
