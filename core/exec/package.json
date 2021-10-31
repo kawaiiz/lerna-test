@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/exec",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "execcute package",
   "keywords": [],
   "author": "zml <zmlq7@outlook.com>",
@@ -29,6 +29,6 @@
   },
   "dependencies": {
     "@zml-lerna-test/log": "*",
-    "@zml-lerna-test/package": "*"
+    "@zml-lerna-test/package": "^0.1.2"
   }
 }
