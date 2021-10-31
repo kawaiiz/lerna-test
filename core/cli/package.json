@@ -20,9 +20,10 @@
     "test": "echo \"Error: run tests from root\" && exit 1"
   },
   "dependencies": {
-    "@zml-lerna-test/get-npm-info": "^0.1.1",
-    "@zml-lerna-test/log": "^0.1.1",
-    "@zml-lerna-test/utils": "^0.1.1",
+    "@zml-lerna-test/get-npm-info": "*",
+    "@zml-lerna-test/log": "*",
+    "@zml-lerna-test/utils": "*",
+    "@zml-lerna-test/init": "*",
     "colors": "^1.4.0",
     "commander": "^8.3.0",
     "import-local": "^3.0.3",
