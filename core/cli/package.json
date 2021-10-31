@@ -24,6 +24,7 @@
     "@zml-lerna-test/log": "*",
     "@zml-lerna-test/utils": "*",
     "@zml-lerna-test/init": "*",
+    "@zml-lerna-test/exec": "*",
     "colors": "^1.4.0",
     "commander": "^8.3.0",
     "import-local": "^3.0.3",

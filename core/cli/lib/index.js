@@ -3,15 +3,18 @@
 const path = require('path')
 const commander = require('commander')
 const semver = require('semver')
+const dotenv = require('dotenv')
 const colors = require('colors')
 const rootCheck = require('root-check')
 const userHome = require('user-home')
+// pathExists使用4.0.0  5.0.0是ES模块
 const pathExists = require('path-exists').sync
 const pkg = require('../package.json')
 const constant = require('./contant')
 const log = require('@zml-lerna-test/log')
-const utils = require('@zml-lerna-test/utils')
-const init = require('@zml-lerna-test/init')
+// const utils = require('@zml-lerna-test/utils')
+// const init = require('@zml-lerna-test/init')
+const exec = require('@zml-lerna-test/exec')
 const { getNpmSemverVersion } = require('@zml-lerna-test/get-npm-info')
 
 let args
@@ -27,6 +30,9 @@ async function core() {
     registerCommand()
   } catch (e) {
     log.error(e.message)
+    if (program.debug) {
+      console.log(e)
+    }
   }
 }
 
@@ -44,7 +50,7 @@ function registerCommand() {
   program.command('init [projectName]')
     .description('初始化')
     .option('-f, --force', '是否强制初始化项目')
-    .action(init)
+    .action(exec)
 
   program.on('option:debug', () => {
     // commander7.0后从opts方法里获取参数
@@ -56,7 +62,6 @@ function registerCommand() {
       process.env.LOG_LEVEL = 'info'
     }
     log.level = process.env.LOG_LEVEL
-    log.verbose('test')
   })
 
 
