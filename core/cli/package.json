@@ -23,7 +23,7 @@
     "@zml-lerna-test/exec": "^0.1.2",
     "@zml-lerna-test/get-npm-info": "^0.1.2",
     "@zml-lerna-test/init": "^0.1.2",
-    "@zml-lerna-test/log": "*",
+    "@zml-lerna-test/log": "^0.1.2",
     "@zml-lerna-test/utils": "^0.1.2",
     "colors": "^1.4.0",
     "commander": "^8.3.0",
