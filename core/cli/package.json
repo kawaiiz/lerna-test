@@ -21,10 +21,12 @@
   },
   "dependencies": {
     "@zml-lerna-test/get-npm-info": "^0.1.1",
+    "@zml-lerna-test/init": "^0.1.1",
     "@zml-lerna-test/log": "^0.1.1",
     "@zml-lerna-test/utils": "^0.1.1",
     "colors": "^1.4.0",
     "commander": "^8.3.0",
+    "dotenv": "^10.0.0",
     "import-local": "^3.0.3",
     "npmlog": "^5.0.1",
     "path-exists": "4.0.0",
