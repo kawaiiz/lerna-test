@@ -5,7 +5,7 @@ const Package = require('@zml-lerna-test/package')
 const log = require('@zml-lerna-test/log')
 
 const SETTINGS = {
-  init: '@zml-lerna-test/utils'
+  init: '@zml-lerna-test/init'
 }
 
 const CATCH_DIR = 'dependencies'
