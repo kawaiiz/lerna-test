@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/exec",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "execcute package",
   "keywords": [],
   "author": "zml <zmlq7@outlook.com>",
@@ -28,7 +28,7 @@
     "url": "https://github.com/kawaiiz/lerna-test/issues"
   },
   "dependencies": {
-    "@zml-lerna-test/log": "^0.1.3",
-    "@zml-lerna-test/package": "^0.1.3"
+    "@zml-lerna-test/log": "^0.1.4",
+    "@zml-lerna-test/package": "^0.1.4"
   }
 }
