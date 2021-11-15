@@ -1,126 +1,157 @@
-'use strict';
+"use strict";
+
+const path = require("path");
+const commander = require("commander");
+const dotenv = require("dotenv");
+const semver = require("semver");
+const colors = require("colors");
+const rootCheck = require("root-check");
+const userHome = require("user-home");
+// pathExists使用4.0.0  5.0.0是ES模块
+const pathExists = require("path-exists").sync;
+const pkg = require("../package.json");
+const constant = require("./contant");
+const log = require("@zml-lerna-test/log");
+const exec = require("@zml-lerna-test/exec");
+const { getNpmSemverVersion } = require("@zml-lerna-test/get-npm-info");
 
 
-const semver = require('semver')
-const colors = require('colors')
-const rootCheck = require('root-check')
-const userHome = require('user-home')
-const pathExists = require('path-exists').sync
-
-const pkg = require('../package.json')
-const constant = require('./contant')
-// const utils = require('@zml-lerna-test/utils')
-const log = require('@zml-lerna-test/log')
-
+let args;
+const program = new commander.Command();
 
 function core() {
   try {
-    rootCheck()
-    checkPkgVersion()
-    checkNodeVersion()
-    checkRoot()
-    checkUserHome()
-    checkInputArfs()
-    checkGlobalUpdate()
+    // 检查工作
+    prepare();
+    // 命令注册
+    registerCommand();
   } catch (e) {
-    log.error(e.message)
+    log.error(e.message);
+    if (program.debug) {
+      console.log(e);
+    }
   }
 }
 
-function checkPkgVersion() {
-  log.info(pkg.version)
-}
+// 初始化命令行参数显示
+function registerCommand() {
+  program
+    .name(Object.keys(pkg.bin)[0])
+    .version(pkg.version)
+    .usage("<command> [options]")
+    .option("-d, --debug", "是否开启调试模式?", false)
+    .option("-tp, --targetPath <targetPath>", "是否指定本地调试文件路径", "");
 
-function checkNodeVersion() {
-  const currentVersion = process.version
-  const lowestVersion = constant.LOWEST_NODE_VERSION
-  if (!semver.gte(currentVersion, lowestVersion)) {
-    throw new Error(colors.red(`请安装${lowestVersion}版本及以上node`))
+  // 注册命令
+  program
+    .command("init [projectName]")
+    .description("初始化")
+    .option("-f, --force", "是否强制初始化项目")
+    .action(exec);
+
+  program.on("option:targetPath", () => {
+    // commander7.0后从opts方法里获取参数
+    // https://github.com/tj/commander.js/blob/master/Readme_zh-CN.md
+    //  process.env.CLI_TARGET_PATH = program.targetPath
+    process.env.CLI_TARGET_PATH = program.opts().targetPath;
+  });
+
+  program.on("option:debug", () => {
+    // commander7.0后从opts方法里获取参数
+    // https://github.com/tj/commander.js/blob/master/Readme_zh-CN.md
+    const debug = program.opts().debug;
+    if (debug) {
+      process.env.LOG_LEVEL = "verbose";
+    } else {
+      process.env.LOG_LEVEL = "info";
+    }
+    log.level = process.env.LOG_LEVEL;
+  });
+
+  // 对未知命令监听
+  program.on("command:*", (obj) => {
+    const availableCommands = program.commands.map((cmd) => cmd.name());
+    log.error(`未知命令：${obj.join(",")}`);
+    if (availableCommands.length > 0) {
+      log.info(`可用命令：${availableCommands.join(",")}`);
+    }
+  });
+
+  program.parse(process.argv);
+  if (program.args && program.args.length < 1) {
+    program.outputHelp();
+    console.log();
   }
 }
 
-function checkRoot() {
-  console.log(`uid:${process.geteuid()}`)
+async function prepare() {
+  try {
+    checkPkgVersion();
+    checkRoot();
+    checkUserHome();
+    checkEnv();
+    await checkGlobalUpdate();
+  } catch (e) {
+    log.error(e.message);
+  }
+}
+
+// 检查当前包的版本，与npm上版本比较
+async function checkGlobalUpdate() {
+  // 获取当前版本号和模块名
+  const { version: currentVersion, name: npmName } = pkg;
+  // 调用NPM API
+  const lastVersion = await getNpmSemverVersion(currentVersion, npmName);
+  if (lastVersion && semver.gt(lastVersion, currentVersion)) {
+    log.warn(
+      colors.yellow(
+        "请升级版本，当前版本：",
+        currentVersion,
+        "最新版本：",
+        lastVersion
+      )
+    );
+  }
+}
+
+// 读取环境变量
+function checkEnv() {
+  const dotenvPath = path.resolve(userHome, ".env_lerna_test");
+  if (pathExists(dotenvPath)) {
+    dotenv.config({
+      path: dotenvPath,
+    });
+  }
+  createDefaultConfig();
+}
+
+// 创建默认的环境变量配置
+function createDefaultConfig() {
+  const cliConfig = {
+    home: userHome,
+  };
+  if (process.env.CLI_HOME) {
+    cliConfig["cliHome"] = path.join(userHome, process.env.CLI_HOME);
+  } else {
+    cliConfig["cliHome"] = path.join(userHome, constant.DEFAULT_CLI_HOME);
+  }
+  process.env.CLI_HOME_PATH = cliConfig.cliHome;
 }
 
 function checkUserHome() {
   if (!userHome || !pathExists(userHome)) {
-    throw new Error(colors.red('当前登录用户主目录不存在！'))
+    throw new Error(colors.red("当前登录用户主目录不存在！"));
   }
 }
 
-let args
-
-function checkInputArfs() {
-  const minimist = require('minimist')
-  args = minimist(process.argv.slice(2))
-  checkArgs()
+// 检查是否是root用户
+function checkRoot() {
+  rootCheck();
 }
 
-function checkArgs() {
-  if (args.debug) {
-    process.env.LOG_LEVEL = 'verbose'
-  } else {
-    process.env.LOG_LEVEL = 'info'
-  }
-  log.level = process.env.LOG_LEVEL
+// 打印当前版本
+function checkPkgVersion() {
+  log.info("pkg.version", pkg.version);
 }
-
-async function checkGlobalUpdate() {
-  // 获取当前版本号和模块名
-  const { version: currentVersion, name: npmName } = pkg
-  // 调用NPM API
-  const { getNpmSemverVersion } = require('@zml-lerna-test/get-npm-info')
-  const lastVersion = await getNpmSemverVersion(currentVersion, npmName)
-  if (lastVersion && semver.gt(lastVersion, currentVersion)) {
-    log.warn(colors.yellow('请升级版本，当前版本：', currentVersion, '最新版本：', lastVersion))
-  }
-}
-
-const commander = require('commander')
-
-const program = new commander.Command()
-
-console.log(pkg.bin)
-// 初始化
-program
-  .name(Object.keys(pkg.bin)[0])
-  .usage('<command> [options]')
-  .version(pkg.version)
-  .option('-d, --debug', '是否开启调试模式', false)
-  .option('-f, --force', '是否强制添加', true)
-  .option('-e, --envName <envName>', '获取环境变量名称')
-
-// 注册命令
-const add = program.command('add <name> [name2] [name3]')
-add
-  .description('添加')
-  .option('-f, --force', '是否强制添加')
-  .action((name, name2, name3, cmdObj) => {
-    console.log('do add', name, name2, cmdObj.force)
-  })
-
-
-// addCommand 注册命令
-const server = new commander.Command('server')
-server
-  .command('start [port]')
-  .description('开启服务')
-  .action((port) => {
-    console.log('server listening  on port:', port)
-  })
-
-server
-  .command('stop')
-  .description('停止服务')
-  .action(() => {
-    console.log('server stop')
-  })
-
-program.addCommand(server)
-
-
-program
-  .parse(process.argv)
 
 module.exports = core;

@@ -1,6 +1,6 @@
-
-const LOWEST_NODE_VERSION = "v12.0.0"
+// cli/contant.js
+const DEFAULT_CLI_HOME = "./.zml-lerna-test";
 
 module.exports = {
-  LOWEST_NODE_VERSION
-}
+  DEFAULT_CLI_HOME,
+};

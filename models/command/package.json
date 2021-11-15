@@ -1,5 +1,5 @@
 {
-  "name": "@zml-lerna-test/log",
+  "name": "@zml-lerna-test/command",
   "version": "0.2.0",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
@@ -27,7 +27,8 @@
     "url": "https://github.com/kawaiiz/lerna-test/issues"
   },
   "dependencies": {
-    "npmlog": "^5.0.1"
-  },
-  "gitHead": "5dd59cf2036d7d18e45f9ab5c1d2de343571e77a"
+    "@zml-lerna-test/log": "^0.2.0",
+    "colors": "^1.4.0",
+    "semver": "^7.3.5"
+  }
 }
