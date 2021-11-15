@@ -12,8 +12,9 @@ const pathExists = require("path-exists").sync;
 const pkg = require("../package.json");
 const constant = require("./contant");
 const log = require("@zml-lerna-test/log");
-const init = require("@zml-lerna-test/init");
+const exec = require("@zml-lerna-test/exec");
 const { getNpmSemverVersion } = require("@zml-lerna-test/get-npm-info");
+
 
 let args;
 const program = new commander.Command();
@@ -38,14 +39,22 @@ function registerCommand() {
     .name(Object.keys(pkg.bin)[0])
     .version(pkg.version)
     .usage("<command> [options]")
-    .option("-d, --debug", "是否开启调试模式?", false);
+    .option("-d, --debug", "是否开启调试模式?", false)
+    .option("-tp, --targetPath <targetPath>", "是否指定本地调试文件路径", "");
 
   // 注册命令
   program
     .command("init [projectName]")
     .description("初始化")
     .option("-f, --force", "是否强制初始化项目")
-    .action(init);
+    .action(exec);
+
+  program.on("option:targetPath", () => {
+    // commander7.0后从opts方法里获取参数
+    // https://github.com/tj/commander.js/blob/master/Readme_zh-CN.md
+    //  process.env.CLI_TARGET_PATH = program.targetPath
+    process.env.CLI_TARGET_PATH = program.opts().targetPath;
+  });
 
   program.on("option:debug", () => {
     // commander7.0后从opts方法里获取参数
@@ -78,7 +87,6 @@ function registerCommand() {
 async function prepare() {
   try {
     checkPkgVersion();
-    checkNodeVersion();
     checkRoot();
     checkUserHome();
     checkEnv();
@@ -139,15 +147,6 @@ function checkUserHome() {
 // 检查是否是root用户
 function checkRoot() {
   rootCheck();
-}
-
-// 检查node版本
-function checkNodeVersion() {
-  const currentVersion = process.version;
-  const lowestVersion = constant.LOWEST_NODE_VERSION;
-  if (!semver.gte(currentVersion, lowestVersion)) {
-    throw new Error(colors.red(`请安装${lowestVersion}版本及以上node`));
-  }
 }
 
 // 打印当前版本
