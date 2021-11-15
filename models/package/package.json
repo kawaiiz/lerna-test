@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/package",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
   "homepage": "https://github.com/kawaiiz/lerna-test#readme",
@@ -27,9 +27,9 @@
     "url": "https://github.com/kawaiiz/lerna-test/issues"
   },
   "dependencies": {
-    "@zml-lerna-test/format-path": "^0.1.1",
-    "@zml-lerna-test/get-npm-info": "^0.1.1",
-    "@zml-lerna-test/utils": "^0.1.1",
+    "@zml-lerna-test/format-path": "^0.2.0",
+    "@zml-lerna-test/get-npm-info": "^0.2.0",
+    "@zml-lerna-test/utils": "^0.2.0",
     "fs-extra": "^10.0.0",
     "npminstall": "4.10.0",
     "path-exists": "4.0.0",
