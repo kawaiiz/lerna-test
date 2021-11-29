@@ -1,6 +1,6 @@
 {
   "name": "@zml-lerna-test/init",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "> TODO: description",
   "author": "zml <zmlq7@outlook.com>",
   "homepage": "https://github.com/kawaiiz/lerna-test#readme",
@@ -27,8 +27,8 @@
     "url": "https://github.com/kawaiiz/lerna-test/issues"
   },
   "dependencies": {
-    "@zml-lerna-test/log": "^0.2.0",
-    "@zml-lerna-test/package": "^0.2.0",
+    "@zml-lerna-test/log": "^1.0.0",
+    "@zml-lerna-test/package": "^1.0.0",
     "axios": "^0.24.0",
     "ejs": "^3.1.6",
     "fs-extra": "^10.0.0",
