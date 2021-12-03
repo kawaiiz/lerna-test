@@ -27,6 +27,7 @@
     "url": "https://github.com/kawaiiz/lerna-test/issues"
   },
   "dependencies": {
+    "@zml-lerna-test/command": "^1.0.0",
     "@zml-lerna-test/log": "^1.0.0",
     "@zml-lerna-test/package": "^1.0.0",
     "axios": "^0.24.0",
